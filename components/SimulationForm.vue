@@ -167,7 +167,7 @@
       </v-form>
     </v-card-text>
     <v-card-actions class="d-flex justify-center">
-      <v-btn type="submit" background-color="primary" size="big">Compilar</v-btn>
+      <v-btn type="submit" color="primary" size="big">Compilar</v-btn>
     </v-card-actions>
   </v-card>
 </template>
