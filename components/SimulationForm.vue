@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form ref="form">
     <v-expansion-panels popout>
       <!-- Sistema -->
       <v-expansion-panel>
@@ -15,6 +15,7 @@
                 v-model="system.gain"
                 :rules="systemRules.gain"
                 outlined
+                @change="updateValidation"
               />
             </v-col>
           </v-row>
@@ -26,6 +27,7 @@
                 v-model="system.num"
                 :rules="systemRules.num"
                 outlined
+                @change="updateValidation"
               />
             </v-col>
             <v-col class="py-0 px-2" md="4" sm="6" xs="8">
@@ -37,6 +39,7 @@
                 :items="items"
                 v-model="system.num_type"
                 outlined
+                @change="updateValidation"
               ></v-select>
             </v-col>
           </v-row>
@@ -47,6 +50,7 @@
                 v-model="system.den"
                 :rules="systemRules.den"
                 outlined
+                @change="updateValidation"
               />
             </v-col>
             <v-col class="py-0 px-2" md="4" sm="6" xs="8">
@@ -56,6 +60,7 @@
                 :items="items"
                 v-model="system.den_type"
                 outlined
+                @change="updateValidation"
               ></v-select>
             </v-col>
           </v-row>
@@ -74,8 +79,9 @@
                 size="small"
                 label="Ganho"
                 v-model="comp.gain"
-                :rules="rules.gain"
+                :rules="compRules.gain"
                 outlined
+                @change="updateValidation"
               />
             </v-col>
           </v-row>
@@ -85,8 +91,9 @@
                 size="small"
                 label="Numerador"
                 v-model="comp.num"
-                :rules="rules.num"
+                :rules="compRules.num"
                 outlined
+                @change="updateValidation"
               />
             </v-col>
             <v-col class="py-0 px-2" md="4" sm="6" xs="8">
@@ -97,8 +104,8 @@
                 item-value="value"
                 :items="items"
                 v-model="comp.num_type"
-                :rules="rules.num_type"
                 outlined
+                @change="updateValidation"
               ></v-select>
             </v-col>
           </v-row>
@@ -107,8 +114,9 @@
               <v-text-field
                 label="Denominador"
                 v-model="comp.den"
-                :rules="rules.den"
+                :rules="compRules.den"
                 outlined
+                @change="updateValidation"
               />
             </v-col>
             <v-col class="py-0 px-2" md="4" sm="6" xs="8">
@@ -117,8 +125,8 @@
                 label="Tipo"
                 :items="items"
                 v-model="comp.den_type"
-                :rules="rules.den_type"
                 outlined
+                @change="updateValidation"
               ></v-select>
             </v-col>
           </v-row>
@@ -140,8 +148,9 @@
                 size="small"
                 label="Kp"
                 v-model="pid.kp"
-                :rules="rules.kp"
+                :rules="pidRules.kp"
                 outlined
+                @change="updateValidation"
               />
             </v-col>
           </v-row>
@@ -152,8 +161,9 @@
                 size="small"
                 label="Kd"
                 v-model="pid.kd"
-                :rules="rules.kd"
+                :rules="pidRules.kd"
                 outlined
+                @change="updateValidation"
               />
             </v-col>
           </v-row>
@@ -164,8 +174,9 @@
                 size="small"
                 label="Ki"
                 v-model="pid.ki"
-                :rules="rules.ki"
+                :rules="pidRules.ki"
                 outlined
+                @change="updateValidation"
               />
             </v-col>
           </v-row>
@@ -175,6 +186,7 @@
                 v-model="pid.tune"
                 label="Tunelamento"
                 class="font-weight-medium"
+                @change="updateValidation"
               ></v-switch>
             </v-col>
             <v-col class="py-0 px-1 align-center">
@@ -218,11 +230,13 @@
                 class="ma-1 font-weight-medium"
                 label="Compensador"
                 v-model="options.comp"
+                @change="updateValidation"
               />
               <v-switch
                 class="ma-1 font-weight-medium"
                 label="PID"
                 v-model="options.pid"
+                @change="updateValidation"
               />
             </v-col>
             <v-col class="text-center">
@@ -251,7 +265,12 @@
       </v-expansion-panel>
     </v-expansion-panels>
     <div class="d-flex justify-center my-3">
-      <v-btn color="primary" large :loading="loading" @click.prevent="compile"
+      <v-btn
+        color="primary"
+        :disabled="error"
+        large
+        :loading="loading"
+        @click.prevent="compile"
         >Compilar</v-btn
       >
     </div>
@@ -267,6 +286,8 @@ export default {
     let roots =
       /^\s*([+-]?\d+(.\d+)?)?(([+-](\d+(.\d+)?)?)?[iIjJ])?(\s+([+-]?\d+(.\d+)?)?(([+-](\d+(.\d+)?)?)?[iIjJ])?)*\s*$/;
     return {
+      error: false,
+      loading: false,
       items: [
         { text: "Polinomial", value: "poly" },
         { text: "Racional", value: "roots" },
@@ -305,44 +326,90 @@ export default {
       plots: [],
       systemRules: {
         gain: [
-          this.filledValidation,
-          (v) => gain.test(v) || "Ganho descrito em formato inválido.",
+          (v) => !!v || "Esse campo é obrigatório",
+          (v) => gain.test(v) || "Número escrito em formato inválido.",
         ],
         num: [
-          this.filledValidation,
+          (v) => !!v || "Esse campo é obrigatório",
           (v) =>
             this.system.num_type.value === "poly"
-              ? poly.test(v) || "Polinômio descrito é inválido."
-              : roots.test(v) || "Raizes descritas de forma inválida.",
+              ? poly.test(v) || "Polinômio escrito em formato inválido."
+              : roots.test(v) || "Raizes descritas em formato inválido.",
         ],
         den: [
-          this.filledValidation,
+          (v) => !!v || "Esse campo é obrigatório",
           (v) =>
-            this.system.den.value === "poly"
-              ? poly.test(v) || "Polinômio descrito em formato inválido."
+            this.system.den_type.value === "poly"
+              ? poly.test(v) || "Polinômio escrito em formato inválido."
               : roots.test(v) || "Raizes descritas em formato inválido.",
         ],
       },
-      rules: {
-        num: [
-          this.filledValidation,
-          (v) => {
-            this.num_type;
-          },
+      compRules: {
+        gain: [
+          (v) => !this.options.comp || !!v || "Esse campo é obrigatório",
+          (v) =>
+            !this.options.comp ||
+            gain.test(v) ||
+            "Número escrito em formato inválido.",
         ],
-        den: [this.filledValidation],
-        gain: [this.filledValidation],
-        kp: [this.filledValidation],
-        kd: [this.filledValidation],
-        ki: [this.filledValidation],
+        num: [
+          (v) => !this.options.comp || !!v || "Esse campo é obrigatório",
+          (v) =>
+            !this.options.comp ||
+            (this.comp.num_type.value === "poly"
+              ? poly.test(v) || "Polinômio escrito em formato inválido."
+              : roots.test(v) || "Raizes descritas em formato inválido."),
+        ],
+        den: [
+          (v) => !this.options.comp || !!v || "Esse campo é obrigatório",
+          (v) =>
+            !this.options.comp ||
+            (this.comp.den_type.value === "poly"
+              ? poly.test(v) || "Polinômio escrito em formato inválido."
+              : roots.test(v) || "Raizes descritas em formato inválido."),
+        ],
       },
-      loading: false,
+      pidRules: {
+        kp: [
+          (v) =>
+            this.pid.tune ||
+            !this.options.pid ||
+            !!v ||
+            "Esse campo é obrigatório",
+          (v) =>
+            this.pid.tune ||
+            !this.options.pid ||
+            gain.test(v) ||
+            "Número escrito em formato inválido.",
+        ],
+        kd: [
+          (v) =>
+            this.pid.tune ||
+            !this.options.pid ||
+            !!v ||
+            "Esse campo é obrigatório",
+          (v) =>
+            this.pid.tune ||
+            !this.options.pid ||
+            gain.test(v) ||
+            "Número escrito em formato inválido.",
+        ],
+        ki: [
+          (v) =>
+            this.pid.tune ||
+            !this.options.pid ||
+            !!v ||
+            "Esse campo é obrigatório",
+          (v) =>
+            this.pid.tune ||
+            !this.options.pid ||
+            gain.test(v) ||
+            "Número escrito em formato inválido.",
+        ],
+      },
     };
   },
   methods: {
-    filledValidation(v) {
-      return !!v || "Esse campo é obrigatório";
-    },
     compile() {
       this.loading = true;
       setTimeout(() => {
@@ -356,6 +423,9 @@ export default {
       if (this.options.pid) params.pid = this.pid;
       if (this.options.comp) params.comp = this.comp;
       this.$emit("compile", params);
+    },
+    updateValidation() {
+      this.error = !this.$refs.form.validate();
     },
   },
 };
