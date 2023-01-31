@@ -1,12 +1,12 @@
 <template>
-  <v-card class="pa-3">
+  <v-card class="pb-3" :loading="loading">
     <v-tabs v-model="tab" align-with-title>
       <v-tab href="#form"> Simulação </v-tab>
       <v-tab href="#results"> Resultado </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab" class="mt-5">
       <v-tab-item value="form">
-        <SimulationForm />
+        <SimulationForm @compile="submitForm" />
       </v-tab-item>
       <v-tab-item value="results">
         <SimulationResults />
@@ -24,7 +24,15 @@ export default {
   data() {
     return {
       tab: "",
+      loading: false
     };
   },
+  methods:{
+    submitForm(event){
+      this.loading = true
+      setTimeout(() => {this.loading = false}, 1000)
+      this.$axios.post('/', event).then((res) => {console.log(res)}).catch((error) => console.log(error))
+    }
+  }
 };
 </script>

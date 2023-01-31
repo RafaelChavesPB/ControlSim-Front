@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form" @submit.prevent="submitForm">
+  <v-form>
     <v-expansion-panels popout>
       <!-- Sistema -->
       <v-expansion-panel>
@@ -13,7 +13,7 @@
                 size="small"
                 label="Ganho"
                 v-model="system.gain"
-                :rules="rules.gain"
+                :rules="systemRules.gain"
                 outlined
               />
             </v-col>
@@ -24,7 +24,7 @@
                 size="small"
                 label="Numerador"
                 v-model="system.num"
-                :rules="rules.num"
+                :rules="systemRules.num"
                 outlined
               />
             </v-col>
@@ -36,7 +36,6 @@
                 label="Tipo"
                 :items="items"
                 v-model="system.num_type"
-                :rules="rules.num_type"
                 outlined
               ></v-select>
             </v-col>
@@ -46,7 +45,7 @@
               <v-text-field
                 label="Denominador"
                 v-model="system.den"
-                :rules="rules.den"
+                :rules="systemRules.den"
                 outlined
               />
             </v-col>
@@ -56,7 +55,6 @@
                 label="Tipo"
                 :items="items"
                 v-model="system.den_type"
-                :rules="rules.den_type"
                 outlined
               ></v-select>
             </v-col>
@@ -229,33 +227,33 @@
             </v-col>
             <v-col class="text-center">
               <h3 class="mb-4 font-weight-medium">Plots</h3>
-              <v-checkbox-group>
-                <v-checkbox
-                  v-model="plots"
-                  class="my-0 font-weight-medium"
-                  label="Resposta ao degrau"
-                  value="step"
-                />
-                <v-checkbox
-                  v-model="plots"
-                  class="my-0 font-weight-medium"
-                  label="Mapa de Polos e Zeros"
-                  value="pzmap"
-                />
-                <v-checkbox
-                  v-model="plots"
-                  class="my-0 font-weight-medium"
-                  label="Lugar Geral das Raizes"
-                  value="rlocus"
-                />
-              </v-checkbox-group>
+              <v-checkbox
+                v-model="plots"
+                class="my-0 font-weight-medium"
+                label="Resposta ao degrau"
+                value="step"
+              />
+              <v-checkbox
+                v-model="plots"
+                class="my-0 font-weight-medium"
+                label="Mapa de Polos e Zeros"
+                value="pzmap"
+              />
+              <v-checkbox
+                v-model="plots"
+                class="my-0 font-weight-medium"
+                label="Lugar Geral das Raizes"
+                value="rlocus"
+              />
             </v-col>
           </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
     <div class="d-flex justify-center my-3">
-      <v-btn type="submit" color="primary" large>Compilar</v-btn>
+      <v-btn color="primary" large :loading="loading" @click.prevent="compile"
+        >Compilar</v-btn
+      >
     </div>
   </v-form>
 </template>
@@ -264,6 +262,10 @@
 export default {
   name: "SimulationForm",
   data() {
+    let gain = /^\s*([+-]?\d+(\.\d+)?)\s*$/;
+    let poly = /^(\s*[+-]?\d+(\.\d+)?)(\s+[+-]?\d+(\.\d+)?\s*)*$/;
+    let roots =
+      /^\s*([+-]?\d+(.\d+)?)?(([+-](\d+(.\d+)?)?)?[iIjJ])?(\s+([+-]?\d+(.\d+)?)?(([+-](\d+(.\d+)?)?)?[iIjJ])?)*\s*$/;
     return {
       items: [
         { text: "Polinomial", value: "poly" },
@@ -271,7 +273,7 @@ export default {
       ],
       pid_items: [
         { text: "Série", value: "series" },
-        { text: "Paralelo", value: "paralel" },
+        { text: "Paralelo", value: "parallel" },
       ],
       system: {
         gain: "1",
@@ -301,27 +303,59 @@ export default {
         pid: false,
       },
       plots: [],
+      systemRules: {
+        gain: [
+          this.filledValidation,
+          (v) => gain.test(v) || "Ganho descrito em formato inválido.",
+        ],
+        num: [
+          this.filledValidation,
+          (v) =>
+            this.system.num_type.value === "poly"
+              ? poly.test(v) || "Polinômio descrito é inválido."
+              : roots.test(v) || "Raizes descritas de forma inválida.",
+        ],
+        den: [
+          this.filledValidation,
+          (v) =>
+            this.system.den.value === "poly"
+              ? poly.test(v) || "Polinômio descrito em formato inválido."
+              : roots.test(v) || "Raizes descritas em formato inválido.",
+        ],
+      },
       rules: {
-        num: [this.filledValidation],
+        num: [
+          this.filledValidation,
+          (v) => {
+            this.num_type;
+          },
+        ],
         den: [this.filledValidation],
-        num_type: [this.filledValidation],
-        den_type: [this.filledValidation],
         gain: [this.filledValidation],
         kp: [this.filledValidation],
         kd: [this.filledValidation],
         ki: [this.filledValidation],
       },
+      loading: false,
     };
   },
   methods: {
     filledValidation(v) {
       return !!v || "Esse campo é obrigatório";
     },
-    submitForm() {
-      if (this.$refs.form.validate()) {
-        console.log(this.system);
-        console.log(this.comp);
-      }
+    compile() {
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
+      let params = {
+        system: this.system,
+        feedback: this.options.feedback,
+        plots: this.plots,
+      };
+      if (this.options.pid) params.pid = this.pid;
+      if (this.options.comp) params.comp = this.comp;
+      this.$emit("compile", params);
     },
   },
 };
