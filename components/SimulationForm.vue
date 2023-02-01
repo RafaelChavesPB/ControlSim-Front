@@ -246,7 +246,7 @@
                 v-model="plots"
                 class="my-0 font-weight-medium"
                 label="Resposta ao degrau"
-                value="step"
+                value="step_response"
               />
               <v-checkbox
                 v-model="plots"
