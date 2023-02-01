@@ -40,7 +40,8 @@
                 v-model="system.num_type"
                 outlined
                 @change="updateValidation"
-              ></v-select>
+              >
+              </v-select>
             </v-col>
           </v-row>
           <v-row>
@@ -282,10 +283,12 @@ export default {
   name: "SimulationForm",
   data() {
     let gain = /^\s*([+-]?\d+(\.\d+)?)\s*$/;
-    let poly = /^(\s*[+-]?\d+(\.\d+)?)(\s+[+-]?\d+(\.\d+)?\s*)*$/;
+    let poly = /^(\s*[+-]?\d+(\.\d+)?)(\s+[+-]?\d+(\.\d+)?)*\s*$/;
     let roots =
       /^\s*([+-]?\d+(.\d+)?)?(([+-](\d+(.\d+)?)?)?[iIjJ])?(\s+([+-]?\d+(.\d+)?)?(([+-](\d+(.\d+)?)?)?[iIjJ])?)*\s*$/;
     return {
+      poly: poly,
+      roots: roots,
       error: false,
       loading: false,
       items: [
@@ -299,22 +302,22 @@ export default {
       system: {
         gain: "1",
         num: "1",
-        num_type: { text: "Polinomial", value: "poly" },
+        num_type: "poly",
         den: "1",
-        den_type: { text: "Polinomial", value: "poly" },
+        den_type: "poly",
       },
       comp: {
         gain: "1",
         num: "1",
-        num_type: { text: "Polinomial", value: "poly" },
+        num_type: "poly",
         den: "1",
-        den_type: { text: "Polinomial", value: "poly" },
+        den_type: "poly",
       },
       pid: {
         kp: "0",
         kd: "0",
         ki: "0",
-        type: { text: "Série", value: "series" },
+        type: "series",
         filter: false,
         tune: false,
       },
@@ -332,14 +335,14 @@ export default {
         num: [
           (v) => !!v || "Esse campo é obrigatório",
           (v) =>
-            this.system.num_type.value === "poly"
+            this.system.num_type === "poly"
               ? poly.test(v) || "Polinômio escrito em formato inválido."
               : roots.test(v) || "Raizes descritas em formato inválido.",
         ],
         den: [
           (v) => !!v || "Esse campo é obrigatório",
           (v) =>
-            this.system.den_type.value === "poly"
+            this.system.den_type === "poly"
               ? poly.test(v) || "Polinômio escrito em formato inválido."
               : roots.test(v) || "Raizes descritas em formato inválido.",
         ],
@@ -356,7 +359,7 @@ export default {
           (v) => !this.options.comp || !!v || "Esse campo é obrigatório",
           (v) =>
             !this.options.comp ||
-            (this.comp.num_type.value === "poly"
+            (this.comp.num_type === "poly"
               ? poly.test(v) || "Polinômio escrito em formato inválido."
               : roots.test(v) || "Raizes descritas em formato inválido."),
         ],
@@ -364,7 +367,7 @@ export default {
           (v) => !this.options.comp || !!v || "Esse campo é obrigatório",
           (v) =>
             !this.options.comp ||
-            (this.comp.den_type.value === "poly"
+            (this.comp.den_type === "poly"
               ? poly.test(v) || "Polinômio escrito em formato inválido."
               : roots.test(v) || "Raizes descritas em formato inválido."),
         ],
