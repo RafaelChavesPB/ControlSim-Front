@@ -36,7 +36,6 @@ export default {
       this.$axios
         .post("/", event)
         .then((res) => {
-          console.log(res);
           this.results = res.data.results;
         })
         .catch((error) => console.log(error))
