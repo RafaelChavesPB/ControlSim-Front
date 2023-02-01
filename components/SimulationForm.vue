@@ -281,16 +281,14 @@
 <script>
 export default {
   name: "SimulationForm",
+  props: { loading: Boolean },
   data() {
     let gain = /^\s*([+-]?\d+(\.\d+)?)\s*$/;
     let poly = /^(\s*[+-]?\d+(\.\d+)?)(\s+[+-]?\d+(\.\d+)?)*\s*$/;
     let roots =
       /^\s*([+-]?\d+(.\d+)?)?(([+-](\d+(.\d+)?)?)?[iIjJ])?(\s+([+-]?\d+(.\d+)?)?(([+-](\d+(.\d+)?)?)?[iIjJ])?)*\s*$/;
     return {
-      poly: poly,
-      roots: roots,
       error: false,
-      loading: false,
       items: [
         { text: "Polinomial", value: "poly" },
         { text: "Racional", value: "roots" },
@@ -414,10 +412,6 @@ export default {
   },
   methods: {
     compile() {
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 1000);
       let params = {
         system: this.system,
         feedback: this.options.feedback,

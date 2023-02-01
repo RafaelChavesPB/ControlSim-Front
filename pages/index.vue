@@ -8,7 +8,7 @@
     </v-tabs>
     <v-tabs-items v-model="tab" class="mt-5">
       <v-tab-item value="form">
-        <SimulationForm @compile="submitForm" />
+        <SimulationForm @compile="submitForm" :loading="loading" />
       </v-tab-item>
       <v-tab-item value="results">
         <SimulationResults :results="results" />
@@ -27,21 +27,22 @@ export default {
     return {
       tab: "",
       loading: false,
-      results: { },
+      results: {},
     };
   },
   methods: {
     submitForm(event) {
       this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 1000);
       this.$axios
         .post("/", event)
         .then((res) => {
           console.log(res);
+          this.results = res.data.results;
         })
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
+        .finally(() => {
+          this.loading = false;
+        });
     },
   },
 };
