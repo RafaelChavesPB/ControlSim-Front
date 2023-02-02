@@ -1,5 +1,10 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  server: {
+    host: "0.0.0.0",
+    port: 3000,
+  },
+
   head: {
     title: "ControlSim-Front",
     htmlAttrs: {
@@ -27,10 +32,10 @@ export default {
   buildModules: ["@nuxtjs/vuetify"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios'],
+  modules: ["@nuxtjs/axios"],
 
   axios: {
-    baseURL: 'http://127.0.0.1:5000'
+    baseURL: "http://127.0.0.1:5000",
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
