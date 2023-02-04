@@ -29,7 +29,7 @@
           <v-col xl="6" lg="6" md="6" sm="12">
             <ResultPlot
               v-if="this.results.plots && this.results.plots.step_response"
-              min_w="300"
+              min_w="250"
               max_w="600"
               :plot="this.results.plots.step_response"
             />
