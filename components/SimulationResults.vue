@@ -22,7 +22,6 @@
             <ResultPlot
               v-if="this.results.plots && this.results.plots.step_response"
               min_w="300"
-              max_w="600"
               :plot="this.results.plots.step_response"
             />
           </v-col>
@@ -30,7 +29,6 @@
             <ResultPlot
               v-if="this.results.plots && this.results.plots.step_response"
               min_w="250"
-              max_w="600"
               :plot="this.results.plots.step_response"
             />
           </v-col>
