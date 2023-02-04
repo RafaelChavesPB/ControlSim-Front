@@ -46,10 +46,22 @@
         </h2></v-expansion-panel-header
       >
       <v-expansion-panel-content>
-        <v-img
-          v-if="this.results.plots && this.results.plots.pzmap"
-          :src="'data:image/jpeg;base64,' + this.results.plots.pzmap"
-        />
+        <v-row justify="center" align="center">
+          <v-col xl="6" lg="6" md="6" sm="12">
+            <ResultPlot
+              v-if="this.results.plots && this.results.plots.pzmap"
+              min_w="250"
+              :plot="this.results.plots.step_response"
+            />
+          </v-col>
+          <v-col xl="6" lg="6" md="6" sm="12">
+            <ResultPlot
+              v-if="this.results.plots && this.results.plots.pzmap"
+              min_w="250"
+              :plot="this.results.plots.pzmap"
+            />
+          </v-col>
+        </v-row>
       </v-expansion-panel-content>
     </v-expansion-panel>
 
@@ -63,10 +75,15 @@
         </h2></v-expansion-panel-header
       >
       <v-expansion-panel-content>
-        <v-img
-          v-if="this.results.plots && this.results.plots.rlocus"
-          :src="'data:image/jpeg;base64,' + this.results.plots.rlocus"
-        />
+        <v-row justify="center" align="center">
+          <v-col xl="8" lg="8" md="8" sm="12">
+            <ResultPlot
+              v-if="this.results.plots && this.results.plots.rlocus"
+              min_w="250"
+              :plot="this.results.plots.rlocus"
+            />
+          </v-col>
+        </v-row>
       </v-expansion-panel-content>
     </v-expansion-panel>
   </v-expansion-panels>
