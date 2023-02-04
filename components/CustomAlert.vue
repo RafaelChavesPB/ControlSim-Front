@@ -1,5 +1,5 @@
 <template>
-  <v-alert v-if="show" v-model="show" class="alert" :type="alert_type" dismissible> <span> {{ message }} </span> </v-alert>
+  <v-alert v-if="show" v-model="show" class="alert" :color="alert_type" dismissible> <div class="text"> {{ message }} </div>  </v-alert>
 </template>
 
 <script>
@@ -29,5 +29,11 @@ export default {
   transform: translate(-50%, 0);
   top: 50px;
   z-index: 999999;
+}
+
+.text {
+    text-align: center;
+    color: azure;
+    font-weight: bold;
 }
 </style>
