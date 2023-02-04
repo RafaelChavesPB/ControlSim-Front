@@ -20,7 +20,7 @@
             </v-col>
           </v-row>
           <v-row class="mt-2">
-            <v-col class="py-0 px-1" md="8" xs="4" sm="6">
+            <v-col class="py-0 px-1" md="8" cols="4" sm="6">
               <v-text-field
                 size="small"
                 label="Numerador"
@@ -30,7 +30,7 @@
                 @change="updateValidation"
               />
             </v-col>
-            <v-col class="py-0 px-2" md="4" sm="6" xs="8">
+            <v-col class="py-0 px-2" md="4" sm="6" cols="8">
               <v-select
                 size="small"
                 item-text="text"
@@ -45,7 +45,7 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col class="py-0 px-1" md="8" xs="4" sm="6">
+            <v-col class="py-0 px-1" md="8" cols="4" sm="6">
               <v-text-field
                 label="Denominador"
                 v-model="system.den"
@@ -54,7 +54,7 @@
                 @change="updateValidation"
               />
             </v-col>
-            <v-col class="py-0 px-2" md="4" sm="6" xs="8">
+            <v-col class="py-0 px-2" md="4" sm="6" cols="8">
               <v-select
                 size="small"
                 label="Tipo"
@@ -87,7 +87,7 @@
             </v-col>
           </v-row>
           <v-row class="mt-2">
-            <v-col class="py-0 px-1" md="8" xs="4" sm="6">
+            <v-col class="py-0 px-1" md="8" cols="4" sm="6">
               <v-text-field
                 size="small"
                 label="Numerador"
@@ -97,7 +97,7 @@
                 @change="updateValidation"
               />
             </v-col>
-            <v-col class="py-0 px-2" md="4" sm="6" xs="8">
+            <v-col class="py-0 px-2" md="4" sm="6" cols="8">
               <v-select
                 size="small"
                 label="Tipo"
@@ -111,7 +111,7 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col class="py-0 px-1" md="8" xs="4" sm="6">
+            <v-col class="py-0 px-1" md="8" cols="4" sm="6">
               <v-text-field
                 label="Denominador"
                 v-model="comp.den"
@@ -120,7 +120,7 @@
                 @change="updateValidation"
               />
             </v-col>
-            <v-col class="py-0 px-2" md="4" sm="6" xs="8">
+            <v-col class="py-0 px-2" md="4" sm="6" cols="8">
               <v-select
                 size="small"
                 label="Tipo"

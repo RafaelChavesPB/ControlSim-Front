@@ -6,7 +6,53 @@
       >
       <v-expansion-panel-content>
         <v-row class="text-center" justify="center">
-          <v-col>
+          <v-col xl="6" lg="6" md="6" sm="12" cols="12">
+            <v-row>
+              <v-col>
+                <h3 class="text-left font-weight-regular">Sem Controlador</h3>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-col>
+                <h4 class="mb-3 font-weight-medium">Função de Transferência</h4>
+                <pre>{{ results.values.tf.trim() }} </pre>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-col>
+                <h4 class="mb-3 font-weight-medium">Polos</h4>
+                <ul v-if="results.values.poles.length">
+                  <li
+                    v-for="(pole, index) in results.values.poles"
+                    :key="index"
+                  >
+                    {{ pole }}
+                  </li>
+                </ul>
+                <h5 v-else>-</h5>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-col>
+                <h4 class="mb-3 font-weight-medium">Zeros</h4>
+                <ul v-if="results.values.zeros.length">
+                  <li
+                    v-for="(zero, index) in results.values.zeros"
+                    :key="index"
+                  >
+                    {{ zero }}
+                  </li>
+                </ul>
+                <h5 v-else>-</h5>
+              </v-col>
+            </v-row>
+          </v-col>
+          <v-col xl="6" lg="6" md="6" sm="12" cols="12">
+            <v-row>
+              <v-col>
+                <h3 class="text-left font-weight-regular">Com Controlador</h3>
+              </v-col>
+            </v-row>
             <v-row justify="center">
               <v-col>
                 <h4 class="mb-3 font-weight-medium">Função de Transferência</h4>
@@ -57,14 +103,16 @@
       >
       <v-expansion-panel-content>
         <v-row justify="center" align="center">
-          <v-col xl="6" lg="6" md="6" sm="12">
+          <v-col xl="6" lg="6" md="6" sm="12" cols="12">
+            <h3 class="text-left font-weight-regular">Sem Controlador</h3>
             <ResultPlot
               v-if="this.results.plots && this.results.plots.step_response"
               min_w="300"
               :plot="this.results.plots.step_response"
             />
           </v-col>
-          <v-col xl="6" lg="6" md="6" sm="12">
+          <v-col xl="6" lg="6" md="6" sm="12" cols="12">
+            <h3 class="text-left font-weight-regular">Com Controlador</h3>
             <ResultPlot
               v-if="this.results.plots && this.results.plots.step_response"
               min_w="250"
@@ -86,14 +134,16 @@
       >
       <v-expansion-panel-content>
         <v-row justify="center" align="center">
-          <v-col xl="6" lg="6" md="6" sm="12">
+          <v-col xl="6" lg="6" md="6" sm="12" cols="12">
+            <h3 class="text-left font-weight-regular">Sem Controlador</h3>
             <ResultPlot
               v-if="this.results.plots && this.results.plots.pzmap"
               min_w="250"
-              :plot="this.results.plots.step_response"
+              :plot="this.results.plots.pzmap"
             />
           </v-col>
-          <v-col xl="6" lg="6" md="6" sm="12">
+          <v-col xl="6" lg="6" md="6" sm="12" cols="12">
+            <h3 class="text-left font-weight-regular">Com Controlador</h3>
             <ResultPlot
               v-if="this.results.plots && this.results.plots.pzmap"
               min_w="250"
