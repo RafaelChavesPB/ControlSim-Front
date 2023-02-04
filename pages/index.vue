@@ -49,6 +49,7 @@ export default {
           }else{
             this.$nuxt.$emit('alert', {type: 'warning', message: 'Nenhum plot foi solicitado.'})
           }
+          console.log(this.results.values.zeros)
           this.tab = "results"
         })
         .catch((error) => {

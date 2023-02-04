@@ -17,3 +17,12 @@ export default {
   components: { CustomAlert },
 };
 </script>
+
+<style scoped>
+
+*{
+  font-family: Roboto
+
+}
+
+</style>

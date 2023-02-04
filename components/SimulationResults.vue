@@ -4,7 +4,46 @@
       <v-expansion-panel-header
         ><h2 class="font-weight-medium">Sistema</h2></v-expansion-panel-header
       >
-      <v-expansion-panel-content> </v-expansion-panel-content>
+      <v-expansion-panel-content>
+        <v-row class="text-center" justify="center">
+          <v-col>
+            <v-row justify="center">
+              <v-col>
+                <h4 class="mb-3 font-weight-medium">Função de Transferência</h4>
+                <pre>{{ results.values.tf.trim() }} </pre>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-col>
+                <h4 class="mb-3 font-weight-medium">Polos</h4>
+                <ul v-if="results.values.poles.length">
+                  <li
+                    v-for="(pole, index) in results.values.poles"
+                    :key="index"
+                  >
+                    {{ pole }}
+                  </li>
+                </ul>
+                <h5 v-else>-</h5>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-col>
+                <h4 class="mb-3 font-weight-medium">Zeros</h4>
+                <ul v-if="results.values.zeros.length">
+                  <li
+                    v-for="(zero, index) in results.values.zeros"
+                    :key="index"
+                  >
+                    {{ zero }}
+                  </li>
+                </ul>
+                <h5 v-else>-</h5>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-expansion-panel-content>
     </v-expansion-panel>
 
     <!-- Step -->
@@ -102,3 +141,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+ul {
+  list-style: none;
+  padding: 0;
+}
+</style>
