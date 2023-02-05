@@ -38,27 +38,40 @@ export default {
     };
   },
   methods: {
-    submitForm(payload) {
-      this.loading = true;
-      this.$axios
-        .post("/", payload)
-        .then((res) => {
-          this.results = res.data.results;
-          if(payload.plots.length){
-            this.$nuxt.$emit('alert', {type: 'success', message: 'Compilação Realizada com sucesso.'})
-          }else{
-            this.$nuxt.$emit('alert', {type: 'warning', message: 'Nenhum plot foi solicitado.'})
-          }
-          console.log(this.results.values.zeros)
-          this.tab = "results"
-        })
-        .catch((error) => {
-          this.$nuxt.$emit('alert', {type: 'error', message: error.response.data.error})
-          console.log(error.response)
-        })
-        .finally(() => {
-          this.loading = false;
+    async submitForm(payload) {
+      try {
+        this.loading = true;
+        let resp, cont;
+        if (payload.pid || payload.comp) {
+          resp = await this.$axios.post("/", payload);
+          cont = resp.data;
+          delete payload.pid;
+          delete payload.comp;
+        }
+        resp = await this.$axios.post("/", payload);
+        this.results = resp.data;
+        if (cont) this.results.cont = cont;
+        if (payload.plots.length) {
+          this.$nuxt.$emit("alert", {
+            type: "success",
+            message: "Compilação Realizada com sucesso.",
+          });
+        } else {
+          this.$nuxt.$emit("alert", {
+            type: "warning",
+            message: "Nenhum plot foi solicitado.",
+          });
+        }
+        this.tab = "results";
+      } catch (error) {
+        this.$nuxt.$emit("alert", {
+          type: "error",
+          message: error.response.data.error,
         });
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
     },
   },
 };
