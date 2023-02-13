@@ -35,8 +35,16 @@ export default {
   modules: ["@nuxtjs/axios"],
 
   axios: {
-    baseURL: "http://127.0.0.1:5000",
+    proxy: true,
   },
+
+  proxy: {
+    '/api/': {
+      target: 'https://www.ifpb.edu.br/linsca/aplicacao/',
+      pathRewrite: { '^/api': '/' },
+    },
+  },
+  
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 };

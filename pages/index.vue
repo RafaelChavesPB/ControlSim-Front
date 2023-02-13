@@ -48,7 +48,7 @@ export default {
           delete payload.pid;
           delete payload.comp;
         }
-        resp = await this.$axios.post("/", payload);
+        resp = await this.$axios.post("/api/", payload);
         this.results = resp.data;
         if (cont) this.results.cont = cont;
         if (payload.plots.length) {
