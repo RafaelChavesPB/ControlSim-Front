@@ -35,9 +35,9 @@ export default {
   modules: ["@nuxtjs/axios"],
 
   proxy: {
-    '/api/': { target: process.env.NODE_ENV == 'development' ? 'http://localhost:5000/' : 'http://localhost:5000/', pathRewrite: { '^/api/': '/' } }
+    '/api/': { target: process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api/' : 'https://www.ifpb.edu.br/linsca/controlsim-api/', pathRewrite: { '^/api/': '/' } }
   },
-// https://www.ifpb.edu.br/linsca/controlsim-api/
+  // https://www.ifpb.edu.br/linsca/controlsim-api/
   axios: {
     proxy: true,
   },
