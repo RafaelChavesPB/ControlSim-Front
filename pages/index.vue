@@ -37,18 +37,21 @@ export default {
       results: {},
     };
   },
+  mounted(){
+    console.log(process.env.NODE_ENV == 'development' ? 'http:localhost:5000/' : 'https://www.ifpb.edu.br/linsca/controlsim-api/')
+  },
   methods: {
     async submitForm(payload) {
       try {
         this.loading = true;
         let resp, cont;
         if (payload.pid || payload.comp) {
-          resp = await this.$axios.post("/", payload);
+          resp = await this.$axios.post("/api/", payload);
           cont = resp.data;
           delete payload.pid;
           delete payload.comp;
         }
-        resp = await this.$axios.post("/", payload);
+        resp = await this.$axios.post("/api/", payload);
         this.results = resp.data;
         if (cont) this.results.cont = cont;
         if (payload.plots.length) {

@@ -34,8 +34,12 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxtjs/axios"],
 
+  proxy: {
+    '/api/': { target: process.env.NODE_ENV == 'development' ? 'http://localhost:5000/' : 'http://localhost:5000/', pathRewrite: { '^/api/': '/' } }
+  },
+// https://www.ifpb.edu.br/linsca/controlsim-api/
   axios: {
-    baseURL: "http://127.0.0.1:5000",
+    proxy: true,
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
