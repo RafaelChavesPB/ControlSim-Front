@@ -19,6 +19,6 @@ jobs:
       run:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD && echo $DOCKER_USER
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/controlsim-api
+      run: docker build . --file Dockerfile --tag ${{secrets.DOCKER_USER}}/controlsim-front
     - name: Docker Push
       run: docker push ${{secrets.DOCKER_USER}}/controlsim-front:latest
