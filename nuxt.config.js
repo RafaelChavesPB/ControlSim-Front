@@ -45,11 +45,9 @@ export default {
   },
 
   proxy: {
-    '/api/': { target: process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api/' : 'https://www.ifpb.edu.br/linsca/controlsim-api/', pathRewrite: { '^/api/': '/' } }
+    '/linsca/controlsim/api/': { target: process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api/' : 'https://www.ifpb.edu.br/linsca/controlsim-api/', pathRewrite: { '^/linsca/controlsim/api/': '/' }
   },
   
   // Build Configuration: https://go.nuxtjs.dev/config-build
 
 };
-
-console.log(process.env.NODE_ENV)
