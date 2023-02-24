@@ -1,4 +1,9 @@
 export default {
+
+  router: {
+    base: '/linsca/controlsim'
+  },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   server: {
     host: "0.0.0.0",
@@ -34,19 +39,17 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxtjs/axios"],
 
-  proxy: {
-    '/api/': { target: process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api/' : 'https://www.ifpb.edu.br/linsca/controlsim-api/', pathRewrite: { '^/api/': '/' } }
-  },
-
   // https://www.ifpb.edu.br/linsca/controlsim-api/
   axios: {
     proxy: true,
   },
 
-  build: {
-    publicPath: process.env.NODE_ENV === 'production' ? '/linsca/controlsim' : '/'
-  }
+  proxy: {
+    '/api/': { target: process.env.NODE_ENV == 'development' ? 'http://localhost:5000/api/' : 'https://www.ifpb.edu.br/linsca/controlsim-api/', pathRewrite: { '^/api/': '/' } }
+  },
   
   // Build Configuration: https://go.nuxtjs.dev/config-build
 
 };
+
+console.log(process.env.NODE_ENV)
