@@ -20,20 +20,6 @@
             </v-row>
             <v-row justify="center">
               <v-col>
-                <h4 class="mb-3 font-weight-medium">Polos</h4>
-                <ul v-if="results.values.poles.length">
-                  <li
-                    v-for="(pole, index) in results.values.poles"
-                    :key="index"
-                  >
-                    {{ pole }}
-                  </li>
-                </ul>
-                <h5 v-else>-</h5>
-              </v-col>
-            </v-row>
-            <v-row justify="center">
-              <v-col>
                 <h4 class="mb-3 font-weight-medium">Zeros</h4>
                 <ul v-if="results.values.zeros.length">
                   <li
@@ -41,6 +27,20 @@
                     :key="index"
                   >
                     {{ zero }}
+                  </li>
+                </ul>
+                <h5 v-else>-</h5>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-col>
+                <h4 class="mb-3 font-weight-medium">Polos</h4>
+                <ul v-if="results.values.poles.length">
+                  <li
+                    v-for="(pole, index) in results.values.poles"
+                    :key="index"
+                  >
+                    {{ pole }}
                   </li>
                 </ul>
                 <h5 v-else>-</h5>
@@ -63,20 +63,6 @@
             </v-row>
             <v-row justify="center">
               <v-col>
-                <h4 class="mb-3 font-weight-medium">Polos</h4>
-                <ul v-if="results.cont.values.poles.length">
-                  <li
-                    v-for="(pole, index) in results.cont.values.poles"
-                    :key="index"
-                  >
-                    {{ pole }}
-                  </li>
-                </ul>
-                <h5 v-else>-</h5>
-              </v-col>
-            </v-row>
-            <v-row justify="center">
-              <v-col>
                 <h4 class="mb-3 font-weight-medium">Zeros</h4>
                 <ul v-if="results.cont.values.zeros.length">
                   <li
@@ -84,6 +70,20 @@
                     :key="index"
                   >
                     {{ zero }}
+                  </li>
+                </ul>
+                <h5 v-else>-</h5>
+              </v-col>
+            </v-row>
+            <v-row justify="center">
+              <v-col>
+                <h4 class="mb-3 font-weight-medium">Polos</h4>
+                <ul v-if="results.cont.values.poles.length">
+                  <li
+                    v-for="(pole, index) in results.cont.values.poles"
+                    :key="index"
+                  >
+                    {{ pole }}
                   </li>
                 </ul>
                 <h5 v-else>-</h5>
