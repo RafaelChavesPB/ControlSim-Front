@@ -37,9 +37,6 @@ export default {
       results: {},
     };
   },
-  mounted(){
-    console.log(process.env.NODE_ENV == 'development' ? 'http:localhost:5000/' : 'https://www.ifpb.edu.br/linsca/controlsim-api/')
-  },
   methods: {
     async submitForm(payload) {
       try {
@@ -51,7 +48,7 @@ export default {
           delete payload.pid;
           delete payload.comp;
         }
-        resp = await this.$axios.post("/api/", payload);
+        resp = await this.$axios.post("/linsca/controlsim/api/", payload);
         this.results = resp.data;
         if (cont) this.results.cont = cont;
         if (payload.plots.length) {
@@ -71,7 +68,6 @@ export default {
           type: "error",
           message: error.response.data.error,
         });
-        console.log(error);
       } finally {
         this.loading = false;
       }
