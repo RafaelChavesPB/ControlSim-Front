@@ -38,6 +38,7 @@ export default {
     '/api/': { target: 'https://www.ifpb.edu.br/linsca/controlsim-api/', pathRewrite: { '^/api/': '/' } }
   },
   // https://www.ifpb.edu.br/linsca/controlsim-api/
+  // http://localhost:5000/api
   axios: {
     proxy: true,
   },

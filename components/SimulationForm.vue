@@ -145,7 +145,7 @@
           <v-row class="mt-2">
             <v-col class="py-0 px-1">
               <v-text-field
-                :disabled="pid.tune"
+                :disabled="pid.tune.length"
                 size="small"
                 label="Kp"
                 v-model="pid.kp"
@@ -158,7 +158,7 @@
           <v-row class="mt-2">
             <v-col class="py-0 px-1">
               <v-text-field
-                :disabled="pid.tune"
+                :disabled="pid.tune.length"
                 size="small"
                 label="Kd"
                 v-model="pid.kd"
@@ -171,7 +171,7 @@
           <v-row class="mt-2">
             <v-col class="py-0 px-1">
               <v-text-field
-                :disabled="pid.tune"
+                :disabled="pid.tune.length"
                 size="small"
                 label="Ki"
                 v-model="pid.ki"
@@ -182,15 +182,17 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col class="py-0 px-1 align-center">
-              <v-switch
+            <v-col class="py-0 px-1">
+              <v-select
+                class="custom"
                 v-model="pid.tune"
                 label="Tunelamento"
-                class="font-weight-medium"
                 @change="updateValidation"
-              ></v-switch>
+                :items="pid_tune"
+                outlined
+              ></v-select>
             </v-col>
-            <v-col class="py-0 px-1 align-center">
+            <v-col class="py-0 px-1" justify="center" align="center">
               <v-switch
                 v-model="pid.filter"
                 label="Filtro"
@@ -203,7 +205,7 @@
                 class="custom"
                 item-text="text"
                 item-value="value"
-                :items="pid_items"
+                :items="pid_architecture"
                 v-model="pid.type"
                 label="Tipo"
               ></v-select>
@@ -293,7 +295,11 @@ export default {
         { text: "Polinomial", value: "poly" },
         { text: "Racional", value: "roots" },
       ],
-      pid_items: [
+      pid_tune: [
+        { text: "Não utilizar", value: "" },
+        { text: "Skogestad", value: "skogestad" },
+      ],
+      pid_architecture: [
         { text: "Série", value: "series" },
         { text: "Paralelo", value: "parallel" },
       ],
@@ -317,7 +323,7 @@ export default {
         ki: "0",
         type: "series",
         filter: false,
-        tune: false,
+        tune: "",
       },
       options: {
         feedback: false,
@@ -373,36 +379,36 @@ export default {
       pidRules: {
         kp: [
           (v) =>
-            this.pid.tune ||
+            this.pid.tune.length ||
             !this.options.pid ||
             !!v ||
             "Esse campo é obrigatório",
           (v) =>
-            this.pid.tune ||
+            this.pid.tune.length ||
             !this.options.pid ||
             gain.test(v) ||
             "Número escrito em formato inválido.",
         ],
         kd: [
           (v) =>
-            this.pid.tune ||
+            this.pid.tune.length ||
             !this.options.pid ||
             !!v ||
             "Esse campo é obrigatório",
           (v) =>
-            this.pid.tune ||
+            this.pid.tune.length ||
             !this.options.pid ||
             gain.test(v) ||
             "Número escrito em formato inválido.",
         ],
         ki: [
           (v) =>
-            this.pid.tune ||
+            this.pid.tune.length ||
             !this.options.pid ||
             !!v ||
             "Esse campo é obrigatório",
           (v) =>
-            this.pid.tune ||
+            this.pid.tune.length ||
             !this.options.pid ||
             gain.test(v) ||
             "Número escrito em formato inválido.",
@@ -422,6 +428,7 @@ export default {
       this.$emit("compile", params);
     },
     updateValidation() {
+      console.log(this.pid.tune);
       this.error = !this.$refs.form.validate();
     },
   },
