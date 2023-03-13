@@ -43,7 +43,7 @@ export default {
         this.loading = true;
         let resp, cont;
         if (payload.pid || payload.comp) {
-          resp = await this.$axios.post("/api/", payload);
+          resp = await this.$axios.post("/linsca/controlsim/api/", payload);
           cont = resp.data;
           delete payload.pid;
           delete payload.comp;
