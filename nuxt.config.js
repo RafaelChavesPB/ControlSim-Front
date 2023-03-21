@@ -1,10 +1,9 @@
+import prodcfg from "./config/production"
+import localcfg from "./config/local"
+
 export default {
-
-  router: {
-    base: '/linsca/controlsim'
-  },
-
-  // Global page headers: https://go.nuxtjs.dev/config-head
+  ...prodcfg,
+  
   server: {
     host: "0.0.0.0",
     port: 3000,
@@ -42,15 +41,4 @@ export default {
   axios: {
     proxy: true,
   },
-  
-  proxy: {
-    '/linsca/controlsim/api/': {
-      target: 'https://www.ifpb.edu.br/linsca/controlsim-api/', pathRewrite: { '^/linsca/controlsim/api/': '/' }
-    },
-    
-    // https://www.ifpb.edu.br/linsca/controlsim-api/
-    // http://localhost:5000/api
-    // Build Configuration: https://go.nuxtjs.dev/config-build
-
-  }
 }
