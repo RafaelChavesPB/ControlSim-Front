@@ -38,9 +38,6 @@ export default {
       results: {},
     };
   },
-  mounted(){
-    console.log(process.env.TYPE)
-  },
   methods: {
     async submitForm(payload) {
       try {
