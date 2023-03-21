@@ -2,8 +2,8 @@ import prodcfg from "./config/production"
 import localcfg from "./config/local"
 
 export default {
-  ...prodcfg,
-  
+  ...(process.env.NUXT_ENV_BACK === 'local' ? localcfg : prodcfg),
+
   server: {
     host: "0.0.0.0",
     port: 3000,

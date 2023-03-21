@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
+    "dev-back": "NUXT_ENV_BACK=local nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
