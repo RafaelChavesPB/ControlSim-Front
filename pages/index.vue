@@ -32,6 +32,7 @@ export default {
   components: { SimulationForm, SimulationResults },
   data() {
     return {
+      endpoint: process.env.SIM_ENDPOINT,
       tab: "",
       loading: false,
       results: {},
@@ -43,12 +44,12 @@ export default {
         this.loading = true;
         let resp, cont;
         if (payload.pid || payload.comp) {
-          resp = await this.$axios.post("/linsca/controlsim/api/", payload);
+          resp = await this.$axios.post(this.endpoint, payload);
           cont = resp.data;
           delete payload.pid;
           delete payload.comp;
         }
-        resp = await this.$axios.post("/linsca/controlsim/api/", payload);
+        resp = await this.$axios.post(this.endpoint, payload);
         this.results = resp.data;
         if (cont) this.results.cont = cont;
         if (payload.plots.length) {
