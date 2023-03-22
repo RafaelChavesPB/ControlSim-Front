@@ -9,60 +9,29 @@
         <v-expansion-panel-content>
           <v-row class="mt-2">
             <v-col class="py-0 px-1">
-              <v-text-field
-                size="small"
-                label="Ganho"
-                v-model="system.gain"
-                :rules="systemRules.gain"
-                outlined
-                @change="updateValidation"
-              />
+              <v-text-field size="small" label="Ganho" v-model="system.gain" :rules="systemRules.gain" outlined
+                @change="updateValidation" />
             </v-col>
           </v-row>
           <v-row class="mt-2">
             <v-col class="py-0 px-1" md="8" cols="4" sm="6">
-              <v-text-field
-                size="small"
-                label="Numerador"
-                v-model="system.num"
-                :rules="systemRules.num"
-                outlined
-                @change="updateValidation"
-              />
+              <v-text-field size="small" label="Numerador" v-model="system.num" :rules="systemRules.num" outlined
+                @change="updateValidation" />
             </v-col>
             <v-col class="py-0 px-2" md="4" sm="6" cols="8">
-              <v-select
-                size="small"
-                item-text="text"
-                item-value="value"
-                label="Tipo"
-                :items="items"
-                v-model="system.num_type"
-                outlined
-                @change="updateValidation"
-              >
+              <v-select size="small" item-text="text" item-value="value" label="Tipo" :items="items"
+                v-model="system.num_type" outlined @change="updateValidation">
               </v-select>
             </v-col>
           </v-row>
           <v-row>
             <v-col class="py-0 px-1" md="8" cols="4" sm="6">
-              <v-text-field
-                label="Denominador"
-                v-model="system.den"
-                :rules="systemRules.den"
-                outlined
-                @change="updateValidation"
-              />
+              <v-text-field label="Denominador" v-model="system.den" :rules="systemRules.den" outlined
+                @change="updateValidation" />
             </v-col>
             <v-col class="py-0 px-2" md="4" sm="6" cols="8">
-              <v-select
-                size="small"
-                label="Tipo"
-                :items="items"
-                v-model="system.den_type"
-                outlined
-                @change="updateValidation"
-              ></v-select>
+              <v-select size="small" label="Tipo" :items="items" v-model="system.den_type" outlined
+                @change="updateValidation"></v-select>
             </v-col>
           </v-row>
         </v-expansion-panel-content>
@@ -76,59 +45,28 @@
         <v-expansion-panel-content>
           <v-row class="mt-2">
             <v-col class="py-0 px-1">
-              <v-text-field
-                size="small"
-                label="Ganho"
-                v-model="comp.gain"
-                :rules="compRules.gain"
-                outlined
-                @change="updateValidation"
-              />
+              <v-text-field size="small" label="Ganho" v-model="comp.gain" :rules="compRules.gain" outlined
+                @change="updateValidation" />
             </v-col>
           </v-row>
           <v-row class="mt-2">
             <v-col class="py-0 px-1" md="8" cols="4" sm="6">
-              <v-text-field
-                size="small"
-                label="Numerador"
-                v-model="comp.num"
-                :rules="compRules.num"
-                outlined
-                @change="updateValidation"
-              />
+              <v-text-field size="small" label="Numerador" v-model="comp.num" :rules="compRules.num" outlined
+                @change="updateValidation" />
             </v-col>
             <v-col class="py-0 px-2" md="4" sm="6" cols="8">
-              <v-select
-                size="small"
-                label="Tipo"
-                item-text="text"
-                item-value="value"
-                :items="items"
-                v-model="comp.num_type"
-                outlined
-                @change="updateValidation"
-              ></v-select>
+              <v-select size="small" label="Tipo" item-text="text" item-value="value" :items="items"
+                v-model="comp.num_type" outlined @change="updateValidation"></v-select>
             </v-col>
           </v-row>
           <v-row>
             <v-col class="py-0 px-1" md="8" cols="4" sm="6">
-              <v-text-field
-                label="Denominador"
-                v-model="comp.den"
-                :rules="compRules.den"
-                outlined
-                @change="updateValidation"
-              />
+              <v-text-field label="Denominador" v-model="comp.den" :rules="compRules.den" outlined
+                @change="updateValidation" />
             </v-col>
             <v-col class="py-0 px-2" md="4" sm="6" cols="8">
-              <v-select
-                size="small"
-                label="Tipo"
-                :items="items"
-                v-model="comp.den_type"
-                outlined
-                @change="updateValidation"
-              ></v-select>
+              <v-select size="small" label="Tipo" :items="items" v-model="comp.den_type" outlined
+                @change="updateValidation"></v-select>
             </v-col>
           </v-row>
         </v-expansion-panel-content>
@@ -139,76 +77,38 @@
         <v-expansion-panel-header>
           <h2 class="font-weight-medium">
             Controlador PID
-          </h2></v-expansion-panel-header
-        >
+          </h2>
+        </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-row class="mt-2">
             <v-col class="py-0 px-1">
-              <v-text-field
-                :disabled="pid.tune.length"
-                size="small"
-                label="Kp"
-                v-model="pid.kp"
-                :rules="pidRules.kp"
-                outlined
-                @change="updateValidation"
-              />
+              <v-text-field :disabled="!!pid.tune.length" size="small" label="Kp" v-model="pid.kp" :rules="pidRules.kp"
+                outlined @change="updateValidation" />
             </v-col>
           </v-row>
           <v-row class="mt-2">
             <v-col class="py-0 px-1">
-              <v-text-field
-                :disabled="pid.tune.length"
-                size="small"
-                label="Kd"
-                v-model="pid.kd"
-                :rules="pidRules.kd"
-                outlined
-                @change="updateValidation"
-              />
+              <v-text-field :disabled="!!pid.tune.length" size="small" label="Kd" v-model="pid.kd" :rules="pidRules.kd"
+                outlined @change="updateValidation" />
             </v-col>
           </v-row>
           <v-row class="mt-2">
             <v-col class="py-0 px-1">
-              <v-text-field
-                :disabled="pid.tune.length"
-                size="small"
-                label="Ki"
-                v-model="pid.ki"
-                :rules="pidRules.ki"
-                outlined
-                @change="updateValidation"
-              />
+              <v-text-field :disabled="!!pid.tune.length" size="small" label="Ki" v-model="pid.ki" :rules="pidRules.ki"
+                outlined @change="updateValidation" />
             </v-col>
           </v-row>
           <v-row>
             <v-col class="py-0 px-1">
-              <v-select
-                class="custom"
-                v-model="pid.tune"
-                label="Tunelamento"
-                @change="updateValidation"
-                :items="pid_tune"
-                outlined
-              ></v-select>
+              <v-select class="custom" v-model="pid.tune" label="Tunelamento" @change="updateValidation" :items="pid_tune"
+                outlined></v-select>
             </v-col>
-            <v-col class="py-0 px-1" justify="center" align="center">
-              <v-switch
-                v-model="pid.filter"
-                label="Filtro"
-                class="font-weight-medium"
-              ></v-switch>
+            <v-col class="py-0 px-1" justify="center">
+              <v-switch v-model="pid.filter" label="Filtro" class="font-weight-medium"></v-switch>
             </v-col>
             <v-col class="py-0 px-1">
-              <v-select
-                outlined
-                class="custom"
-                item-text="text"
-                item-value="value"
-                :items="pid_architecture"
-                v-model="pid.type"
-                label="Tipo"
-              ></v-select>
+              <v-select outlined class="custom" item-text="text" item-value="value" :items="pid_architecture"
+                v-model="pid.type" label="Tipo"></v-select>
             </v-col>
           </v-row>
         </v-expansion-panel-content>
@@ -217,65 +117,32 @@
       <!-- Opções -->
       <v-expansion-panel>
         <v-expansion-panel-header>
-          <h2 class="font-weight-medium">Opções</h2>
+          <h2 class="font-weight-medium">Opções de Simulação</h2>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <v-row class="mt-2">
-            <v-col class="text-center">
+            <v-col sm="6" cols="12" class="text-center">
               <h3 class="mb-4 font-weight-medium">Habilitar</h3>
 
-              <v-switch
-                class="ma-1 font-weight-medium"
-                label="Realimentação"
-                v-model="options.feedback"
-              />
-              <v-switch
-                class="ma-1 font-weight-medium"
-                label="Compensador"
-                v-model="options.comp"
-                @change="updateValidation"
-              />
-              <v-switch
-                class="ma-1 font-weight-medium"
-                label="PID"
-                v-model="options.pid"
-                @change="updateValidation"
-              />
+              <v-switch class="ma-1 font-weight-medium" label="Realimentação" v-model="options.feedback" />
+              <v-switch class="ma-1 font-weight-medium" label="Compensador" v-model="options.comp"
+                @change="updateValidation" />
+              <v-switch class="ma-1 font-weight-medium" label="PID" v-model="options.pid" @change="updateValidation" />
             </v-col>
-            <v-col class="text-center">
-              <h3 class="mb-4 font-weight-medium">Plots</h3>
-              <v-checkbox
-                v-model="plots"
-                class="my-0 font-weight-medium"
-                label="Resposta ao degrau"
-                value="step_response"
-              />
-              <v-checkbox
-                v-model="plots"
-                class="my-0 font-weight-medium"
-                label="Mapa de Polos e Zeros"
-                value="pzmap"
-              />
-              <v-checkbox
-                v-model="plots"
-                class="my-0 font-weight-medium"
-                label="Lugar Geral das Raizes"
-                value="rlocus"
-              />
+            <v-col sm="6" cols="12" class="text-center">
+              <h3 class="mb-4 font-weight-medium">Simulação</h3>
+              <v-text-field size="small" label="Amplitude da Entrada" v-model="options.input_amplitude"
+                :rules="optionsRules.input_amplitude" outlined @change="updateValidation" />
+              <v-select label="Gráficos" :items="items_plot" item-text="text" tem-value="value" v-model="plots"
+                outlined multiple small-chips @change="print">
+              </v-select>
             </v-col>
           </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
     <div class="d-flex justify-center my-3">
-      <v-btn
-        color="primary"
-        :disabled="error"
-        large
-        :loading="loading"
-        @click.prevent="compile"
-        >Compilar</v-btn
-      >
+      <v-btn color="primary" :disabled="error" large :loading="loading" @click.prevent="compile">Compilar</v-btn>
     </div>
   </v-form>
 </template>
@@ -292,8 +159,8 @@ export default {
     return {
       error: false,
       items: [
-        { text: "Polinomial", value: "poly" },
-        { text: "Racional", value: "roots" },
+        { text: "Coeficientes", value: "poly" },
+        { text: "Raízes", value: "roots" },
       ],
       pid_tune: [
         { text: "Não utilizar", value: "" },
@@ -302,6 +169,12 @@ export default {
       pid_architecture: [
         { text: "Série", value: "series" },
         { text: "Paralelo", value: "parallel" },
+      ],
+      items_plot: [
+        { text: "Resposta ao Degrau", value: "step_response" },
+        { text: "Resposta ao Impulso", value: "impulse_response" },
+        { text: "Mapa de Polos e Zeros", value: "pzmap" },
+        { text: "Lugar Geral das Raízes", value: "rlocus" },
       ],
       system: {
         gain: "1",
@@ -326,6 +199,7 @@ export default {
         tune: "",
       },
       options: {
+        input_amplitude: 1,
         feedback: false,
         comp: false,
         pid: false,
@@ -414,9 +288,16 @@ export default {
             "Número escrito em formato inválido.",
         ],
       },
+      optionsRules: {
+        input_amplitude: [(v) => !!v || "Esse campo é obrigatório",
+        (v) => gain.test(v) || "Número escrito em formato inválido."]
+      }
     };
   },
   methods: {
+    print() {
+      console.log(this.plots)
+    },
     compile() {
       let params = {
         system: this.system,
