@@ -1,8 +1,8 @@
 version: '3'
 services:
   front:
+    image: rafaelchavesaec/controlsim-front:latest
     container_name: controlsim-front
-    build: .
     ports:
       -  "8081:3000"
 
