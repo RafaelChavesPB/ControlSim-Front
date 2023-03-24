@@ -186,7 +186,7 @@
               <v-select
                 class="custom"
                 v-model="pid.tune"
-                label="Tunelamento"
+                label="Sintonia"
                 @change="updateValidation"
                 :items="pid_tune"
                 outlined
