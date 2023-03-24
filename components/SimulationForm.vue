@@ -329,6 +329,7 @@ export default {
         feedback: false,
         comp: false,
         pid: false,
+        
       },
       plots: [],
       systemRules: {
