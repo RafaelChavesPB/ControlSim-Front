@@ -129,6 +129,42 @@
       </v-expansion-panel-content>
     </v-expansion-panel>
 
+    <!-- Impulse -->
+    <v-expansion-panel
+      :disabled="!(this.results.plots && this.results.plots.impulse_response)"
+    >
+      <v-expansion-panel-header
+        ><h2 class="font-weight-medium">
+          Resposta ao Impulso
+        </h2></v-expansion-panel-header
+      >
+      <v-expansion-panel-content>
+        <v-row justify="center" align="center">
+          <v-col xl="6" lg="6" md="6" sm="12" cols="12">
+            <h3 class="text-left font-weight-regular" v-if="results.cont">
+              Sem Controlador
+            </h3>
+            <ResultPlot
+              v-if="this.results.plots && this.results.plots.impulse_response"
+              min_w="300"
+              :plot="this.results.plots.impulse_response"
+            />
+          </v-col>
+          <v-col xl="6" lg="6" md="6" sm="12" cols="12" v-if="results.cont">
+            <h3 class="text-left font-weight-regular">Com Controlador</h3>
+            <ResultPlot
+              v-if="
+                this.results.cont.plots && this.results.cont.plots.impulse_response
+              "
+              min_w="250"
+              :plot="this.results.cont.plots.impulse_response"
+            />
+          </v-col>
+        </v-row>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+
+
     <!-- Pzmap -->
     <v-expansion-panel
       :disabled="!(this.results.plots && this.results.plots.pzmap)"

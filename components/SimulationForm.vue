@@ -131,10 +131,10 @@
             </v-col>
             <v-col sm="6" cols="12" class="text-center">
               <h3 class="mb-4 font-weight-medium">Simulação</h3>
-              <v-text-field size="small" label="Amplitude da Entrada" v-model="options.input_amplitude"
-                :rules="optionsRules.input_amplitude" outlined @change="updateValidation" />
+              <v-text-field size="small" label="Amplitude da Entrada" v-model="options.amplitude"
+                :rules="optionsRules.amplitude" outlined @change="updateValidation" />
               <v-select label="Gráficos" :items="items_plot" item-text="text" tem-value="value" v-model="plots"
-                outlined multiple small-chips @change="print">
+                outlined multiple small-chips>
               </v-select>
             </v-col>
           </v-row>
@@ -199,7 +199,7 @@ export default {
         tune: "",
       },
       options: {
-        input_amplitude: 1,
+        amplitude: 1,
         feedback: false,
         comp: false,
         pid: false,
@@ -289,19 +289,17 @@ export default {
         ],
       },
       optionsRules: {
-        input_amplitude: [(v) => !!v || "Esse campo é obrigatório",
+        amplitude: [(v) => !!v || "Esse campo é obrigatório",
         (v) => gain.test(v) || "Número escrito em formato inválido."]
       }
     };
   },
   methods: {
-    print() {
-      console.log(this.plots)
-    },
     compile() {
       let params = {
         system: this.system,
         feedback: this.options.feedback,
+        amplitude: this.options.amplitude,
         plots: this.plots,
       };
       if (this.options.pid) params.pid = this.pid;
@@ -309,7 +307,6 @@ export default {
       this.$emit("compile", params);
     },
     updateValidation() {
-      console.log(this.pid.tune);
       this.error = !this.$refs.form.validate();
     },
   },
