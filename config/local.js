@@ -1,6 +1,6 @@
 export default {
     router: {
-        base: "/",
+        base: "",
     },
     env: {
         SIM_ENDPOINT: '/api/'

@@ -1,9 +1,9 @@
 export default {
-    env: {
-        SIM_ENDPOINT: '/linsca/controlsim/api/',
-    },
     router: {
         base: '/linsca/controlsim'
+    },
+    env: {
+        SIM_ENDPOINT: '/linsca/controlsim/api/',
     },
     proxy:
     {

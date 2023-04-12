@@ -1,8 +1,10 @@
-import prodcfg from "./config/production"
-import localcfg from "./config/local"
+import production from "./config/production"
+import local from "./config/local"
+
+const config = process.env.NUXT_ENV_BACK === 'local' ? local : production
 
 export default {
-  ...(process.env.NUXT_ENV_BACK === 'local' ? localcfg : prodcfg),
+  ...config,
 
   server: {
     host: "0.0.0.0",
@@ -10,7 +12,7 @@ export default {
   },
 
   head: {
-    title: "ControlSim-Front",
+    title: "LINSCA - ControlSim",
     htmlAttrs: {
       lang: "en",
     },
@@ -20,7 +22,7 @@ export default {
       { hid: "description", name: "description", content: "" },
       { name: "format-detection", content: "telephone=no" },
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    link: [{ rel: "icon", type: "image/x-icon", href:  `${config.router.base}/favicon.ico` }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
